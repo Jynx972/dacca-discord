@@ -1,0 +1,6 @@
+B1DDF1 - Uranian Blue - Regular Dice roll
+176087 - Lapis Lazuli - SWRPG Dice roll
+7A306C - Byzantium - Available carts
+B288C0 - African Violet - Show current cart
+523249 - Violet (JTC) - Pasta
+FF0000 - Red - Error
