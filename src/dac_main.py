@@ -48,7 +48,7 @@ async def on_message(message):
                     rigDice = True
         
         elif mesg[1] == 'help':
-            f = open("help.txt", "r")
+            f = open("./config/help.txt", "r")
             await message.channel.send(f.read())
             f.close()
 
