@@ -1,8 +1,8 @@
 import discord
 import os
-from roller import *
-from cart import *
-from getError import *
+from roller.roller import *
+from cart.cart import *
+from config.getError import *
 from datetime import datetime
 # from lenny import *
 
