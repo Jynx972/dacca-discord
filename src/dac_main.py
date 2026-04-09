@@ -2,7 +2,7 @@ import discord
 import os
 from roller.roller import *
 from cart.cart import *
-from config.getError import *
+from config.error_handling.getError import *
 from datetime import datetime
 # from lenny import *
 
