@@ -8,7 +8,7 @@
 *.vsix
 
 # Bot token file
-tokenfile
+src/tokenfile
 
 # Other excludes
 __pycache__

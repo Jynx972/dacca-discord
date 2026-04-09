@@ -1,8 +1,8 @@
 import discord
 import os
-from roller import *
-from cart import *
-from getError import *
+from roller.roller import *
+from cart.cart import *
+from config.error_handling.getError import *
 from datetime import datetime
 # from lenny import *
 
@@ -48,7 +48,7 @@ async def on_message(message):
                     rigDice = True
         
         elif mesg[1] == 'help':
-            f = open("help.txt", "r")
+            f = open("./config/help.txt", "r")
             await message.channel.send(f.read())
             f.close()
 
