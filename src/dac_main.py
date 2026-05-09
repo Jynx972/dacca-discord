@@ -11,8 +11,15 @@ intents.message_content = True
 
 client = discord.Client(intents=intents)
 
-savedir = './saves'
-pastaDir = './pasta'
+basePath = os.path.dirname(os.path.abspath(__file__))
+
+configDir = os.path.join(basePath, 'config')
+savedir = os.path.join(basePath,'saves')
+pastaDir = os.path.join(basePath, 'pasta')
+
+tokenfile = os.path.join(basePath, 'tokenfile')
+helpFile = os.path.join(configDir, 'help.txt')
+
 global LMAO
 LMAO = False
 global toAnnoy
@@ -48,7 +55,7 @@ async def on_message(message):
                     rigDice = True
         
         elif mesg[1] == 'help':
-            f = open("./config/help.txt", "r")
+            f = open(helpFile, "r")
             await message.channel.send(f.read())
             f.close()
 
@@ -127,7 +134,7 @@ async def on_message(message):
         await eef.send('Lmao get DM\'d on')
 
 
-token = open('tokenfile','r').readline()
+token = open(tokenfile,'r').readline()
 client.run(token)
 
         #if message.author.id == 237448487187251201:
