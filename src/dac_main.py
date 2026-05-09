@@ -11,8 +11,14 @@ intents.message_content = True
 
 client = discord.Client(intents=intents)
 
-savedir = './saves'
-pastaDir = './pasta'
+basePath = os.path.dirname(os.path.abspath(__file__))
+
+configDir = os.path.join(basePath, 'config')
+saveDir = os.path.join(basePath,'saves')
+
+tokenfile = os.path.join(basePath, 'tokenfile')
+helpfile = os.path.join(configDir, 'help.txt')
+
 global LMAO
 LMAO = False
 global toAnnoy
@@ -48,18 +54,18 @@ async def on_message(message):
                     rigDice = True
         
         elif mesg[1] == 'help':
-            f = open("./config/help.txt", "r")
+            f = open(helpfile, "r")
             await message.channel.send(f.read())
             f.close()
 
         elif mesg[1] == 'load':
             new()
-            load(mesg[2])
+            load(mesg[2],saveDir)
         elif mesg[1] == 'list':
             await message.reply(embed=printItems())
         elif mesg[1] == 'show':
             listOcarts = ''
-            for file in os.listdir(savedir):
+            for file in os.listdir(saveDir):
                 if '.items' in file:
                     strFile = str(file)
                     fName = strFile.split('.items')
@@ -78,17 +84,8 @@ async def on_message(message):
             elif mesg[2] == 'carry':
                 await message.channel.send(delCarry(mesg[3]))
         elif mesg[1] == 'save':
-            await message.channel.send(save(mesg[2]))
+            await message.channel.send(save(mesg[2],saveDir))
         
-        elif mesg[1] == 'pasta':
-            pastas = []
-            for file in os.listdir(pastaDir):
-                pastas.append(file)
-            randPast = random.randint(0,len(pastas)-1)
-            f = open(f'./pasta/{pastas[randPast]}','r')
-            pastaEmbed = discord.Embed(description=f.read(),color=0x523249)
-            await message.reply(embed=pastaEmbed)
-            f.close()
         elif mesg[1] == 'error':
             if message.author.id == 368922517374763009:
                 await message.channel.send(adminError(mesg[2]))
@@ -127,7 +124,7 @@ async def on_message(message):
         await eef.send('Lmao get DM\'d on')
 
 
-token = open('tokenfile','r').readline()
+token = open(tokenfile,'r').readline()
 client.run(token)
 
         #if message.author.id == 237448487187251201:

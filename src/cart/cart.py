@@ -1,5 +1,6 @@
 from cart.item import *
 from cart.carrier import *
+import os
 import pickle
 import discord
 
@@ -15,6 +16,8 @@ global weightUnit
 weightUnit = "lbs"
 global cartActive
 cartActive = False
+global initialLoad
+initialLoad = True
 
 '''
 now handled by DAC
@@ -204,34 +207,40 @@ def printItems():
 
     return(cartEmbed)
 
-def save(saveName):
+def save(saveName, saveDir):
     global currentName
     if saveName is not None:
         currentName = saveName
-        with open(f'./saves/{saveName}.items', "wb") as item_file:
+        with open(f'{os.path.join(saveDir,saveName)}.items', "wb") as item_file:
             pickle.dump(items, item_file)
-        with open(f'./saves/{saveName}.carry', 'wb') as carry_file:
+        with open(f'{os.path.join(saveDir,saveName)}.carry', 'wb') as carry_file:
             pickle.dump(carriers, carry_file)
     else:
-        with open(f'./saves/{currentName}.items', "wb") as item_file:
+        with open(f'{os.path.join(saveDir,currentName)}.items', "wb") as item_file:
             pickle.dump(items, item_file)
-        with open(f'./saves/{currentName}.carry', 'wb') as carry_file:
+        with open(f'{os.path.join(saveDir,currentName)}.carry', 'wb') as carry_file:
             pickle.dump(carriers, carry_file)
 
     return(f'Saved cart as {currentName}')
 
-def load(saveName):
+def load(saveName, saveDir):
     global currentName
     global currentWeight
     global totalCap
-    save(currentName)
+    global initialLoad
+
+    if not initialLoad:
+        save(currentName, saveDir)
+    elif initialLoad:
+        initialLoad = False
+
     currentName = saveName
 
-    with open(f'./saves/{saveName}.items', "rb") as item_file:
+    with open(f'{os.path.join(saveDir,saveName)}.items', "rb") as item_file:
         loaditems = pickle.load(item_file)
     for i in loaditems:
         items.append(i)
-    with open(f'./saves/{saveName}.carry', "rb") as carry_file:
+    with open(f'{os.path.join(saveDir,saveName)}.carry', "rb") as carry_file:
         loadcarry = pickle.load(carry_file)
     for i in loadcarry:
         carriers.append(i)
