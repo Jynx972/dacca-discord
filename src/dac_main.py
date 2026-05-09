@@ -14,10 +14,10 @@ client = discord.Client(intents=intents)
 basePath = os.path.dirname(os.path.abspath(__file__))
 
 configDir = os.path.join(basePath, 'config')
-savedir = os.path.join(basePath,'saves')
+saveDir = os.path.join(basePath,'saves')
 
 tokenfile = os.path.join(basePath, 'tokenfile')
-helpFile = os.path.join(configDir, 'help.txt')
+helpfile = os.path.join(configDir, 'help.txt')
 
 global LMAO
 LMAO = False
@@ -54,18 +54,18 @@ async def on_message(message):
                     rigDice = True
         
         elif mesg[1] == 'help':
-            f = open(helpFile, "r")
+            f = open(helpfile, "r")
             await message.channel.send(f.read())
             f.close()
 
         elif mesg[1] == 'load':
             new()
-            load(mesg[2])
+            load(mesg[2],saveDir)
         elif mesg[1] == 'list':
             await message.reply(embed=printItems())
         elif mesg[1] == 'show':
             listOcarts = ''
-            for file in os.listdir(savedir):
+            for file in os.listdir(saveDir):
                 if '.items' in file:
                     strFile = str(file)
                     fName = strFile.split('.items')
@@ -84,7 +84,7 @@ async def on_message(message):
             elif mesg[2] == 'carry':
                 await message.channel.send(delCarry(mesg[3]))
         elif mesg[1] == 'save':
-            await message.channel.send(save(mesg[2]))
+            await message.channel.send(save(mesg[2],saveDir))
         
         elif mesg[1] == 'error':
             if message.author.id == 368922517374763009:
