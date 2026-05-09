@@ -15,7 +15,6 @@ basePath = os.path.dirname(os.path.abspath(__file__))
 
 configDir = os.path.join(basePath, 'config')
 savedir = os.path.join(basePath,'saves')
-pastaDir = os.path.join(basePath, 'pasta')
 
 tokenfile = os.path.join(basePath, 'tokenfile')
 helpFile = os.path.join(configDir, 'help.txt')
@@ -87,15 +86,6 @@ async def on_message(message):
         elif mesg[1] == 'save':
             await message.channel.send(save(mesg[2]))
         
-        elif mesg[1] == 'pasta':
-            pastas = []
-            for file in os.listdir(pastaDir):
-                pastas.append(file)
-            randPast = random.randint(0,len(pastas)-1)
-            f = open(f'./pasta/{pastas[randPast]}','r')
-            pastaEmbed = discord.Embed(description=f.read(),color=0x523249)
-            await message.reply(embed=pastaEmbed)
-            f.close()
         elif mesg[1] == 'error':
             if message.author.id == 368922517374763009:
                 await message.channel.send(adminError(mesg[2]))
