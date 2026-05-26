@@ -24,7 +24,7 @@ Currently I have two main features, a dice roller and cart management system,
   
 To use the dice roller, simply type: `DAC- roll (x)d(y) (z)` and I will roll an amount of `y` sided dice equal to `x` and apply modifier `z` to each roll.  
 You may also add `kh(i)` to the command, to only display the highest `i` results.  
-The roller can also do swrpg rolls by using `DAC- roll sw` then adding the dice you want to roll. `b`=blue `bk`=black `g`=green `p`=purple `y`=yellow `r`=red `f` or `w`=force die.  
+The roller can also do GENESYS/SWRPG rolls by using `DAC- roll sw` then adding the dice you want to roll. `b`=blue `bk`=black `g`=green `p`=purple `y`=yellow `r`=red `f` or `w`=force die.  
   
 To use the cart system, see commands below:  
     \- `list` will display the currently loaded cart  
