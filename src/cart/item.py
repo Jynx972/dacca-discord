@@ -1,5 +1,4 @@
-class item():
-
+class item:
     def __init__(self, name, weight, amount):
         """
         An item in the storage system
@@ -13,7 +12,7 @@ class item():
         Returns name of the item
         """
         return self.name
-    
+
     def getItemWeight(self):
         """
         Returns weight of a single item
@@ -25,7 +24,7 @@ class item():
         Returns total weight of all items
         (singWeight multiplied by amount)
         """
-        return self.itemWeight*self.amount
+        return self.itemWeight * self.amount
 
     def getAmount(self):
         """

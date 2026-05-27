@@ -1,5 +1,4 @@
-class carrier():
-    
+class carrier:
     def __init__(self, carryType, carryCap):
         """
         A carrier for the storage system (horse, mule, starship etc.)
