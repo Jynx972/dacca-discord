@@ -83,15 +83,17 @@ async def on_message(message):
 				)
 				await message.reply(embed=listCartEmbed)
 			case "add":
-				if mesg[2] == "item":
-					await message.channel.send(addItem(mesg[3], mesg[4], mesg[5]))
-				elif mesg[2] == "carry":
-					await message.channel.send(addCarry(mesg[3], mesg[4]))
+				match mesg[2]:
+					case "item":
+						await message.channel.send(addItem(mesg[3], mesg[4], mesg[5]))
+					case "carry":
+						await message.channel.send(addCarry(mesg[3], mesg[4]))
 			case "del":
-				if mesg[2] == "item":
-					await message.channel.send(delItem(mesg[3]))
-				elif mesg[2] == "carry":
-					await message.channel.send(delCarry(mesg[3]))
+				match mesg[2]:
+					case "item":
+						await message.channel.send(delItem(mesg[3]))
+					case "carry":
+						await message.channel.send(delCarry(mesg[3]))
 			case "save":
 				await message.channel.send(save(mesg[2], saveDir))
 
@@ -129,10 +131,6 @@ async def on_message(message):
 						f"<@{message.author.id}> sorry bud, but you don't get to do that"
 					)
 
-			# case 'lenny':
-			#     await message.channel.send(lenny_face)
-			# case 'randlenny':
-			#     await message.channel.send(lenny())
 			case _:
 				await message.reply(embed=getErrMsg())
 
