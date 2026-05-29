@@ -29,115 +29,116 @@ rigDice = False
 
 @client.event
 async def on_ready():
-    print(f"We have logged in as {client.user}")
+	print(f"We have logged in as {client.user}")
 
 
 @client.event
 async def on_message(message):
-    global LMAO
-    global toAnnoy
-    global rigDice
-    if message.author == client.user:
-        return
+	global LMAO
+	global toAnnoy
+	global rigDice
+	if message.author == client.user:
+		return
 
-    if message.content.startswith("DAC-"):
-        now = datetime.now()
-        now = now.strftime("%d/%m/%Y %H:%M:%S")
-        print(
-            f"{message.author} requested DAC! Time: {now}, Command: {message.content}"
-        )
-        mesg = message.content.split(" ")
+	if message.content.startswith("DAC-"):
+		now = datetime.now()
+		now = now.strftime("%d/%m/%Y %H:%M:%S")
+		print(
+			f"{message.author} requested DAC! Time: {now}, Command: {message.content}"
+		)
+		mesg = message.content.split(" ")
 
-        if mesg[1] == "roll":
-            await message.reply(embed=commandParseRoller(message.content, rigDice))
-        elif mesg[1] == "rigrolls":
-            if message.author.id == 368922517374763009:
-                if rigDice:
-                    rigDice = False
-                else:
-                    rigDice = True
+		match mesg[1]:
+			case "roll":
+				await message.reply(embed=commandParseRoller(message.content, rigDice))
+			case "rigrolls":
+				if message.author.id == 368922517374763009:
+					if rigDice:
+						rigDice = False
+					else:
+						rigDice = True
 
-        elif mesg[1] == "help":
-            f = open(helpfile, "r")
-            await message.channel.send(f.read())
-            f.close()
+			case "help":
+				f = open(helpfile, "r")
+				await message.channel.send(f.read())
+				f.close()
 
-        elif mesg[1] == "load":
-            new()
-            load(mesg[2], saveDir)
-        elif mesg[1] == "list":
-            await message.reply(embed=printItems())
-        elif mesg[1] == "show":
-            listOcarts = ""
-            for file in os.listdir(saveDir):
-                if ".items" in file:
-                    strFile = str(file)
-                    fName = strFile.split(".items")
-                    listOcarts += f"{fName[0]}\n"
-            listOcarts = listOcarts.rstrip("\n")
-            listCartEmbed = discord.Embed(
-                title="Carts that can be loaded:",
-                description=listOcarts,
-                color=0x7A306C,
-            )
-            await message.reply(embed=listCartEmbed)
-        elif mesg[1] == "add":
-            if mesg[2] == "item":
-                await message.channel.send(addItem(mesg[3], mesg[4], mesg[5]))
-            elif mesg[2] == "carry":
-                await message.channel.send(addCarry(mesg[3], mesg[4]))
-        elif mesg[1] == "del":
-            if mesg[2] == "item":
-                await message.channel.send(delItem(mesg[3]))
-            elif mesg[2] == "carry":
-                await message.channel.send(delCarry(mesg[3]))
-        elif mesg[1] == "save":
-            await message.channel.send(save(mesg[2], saveDir))
+			case "load":
+				new()
+				load(mesg[2], saveDir)
+			case "list":
+				await message.reply(embed=printItems())
+			case "show":
+				listOcarts = ""
+				for file in os.listdir(saveDir):
+					if ".items" in file:
+						strFile = str(file)
+						fName = strFile.split(".items")
+						listOcarts += f"{fName[0]}\n"
+				listOcarts = listOcarts.rstrip("\n")
+				listCartEmbed = discord.Embed(
+					title="Carts that can be loaded:",
+					description=listOcarts,
+					color=0x7A306C,
+				)
+				await message.reply(embed=listCartEmbed)
+			case "add":
+				if mesg[2] == "item":
+					await message.channel.send(addItem(mesg[3], mesg[4], mesg[5]))
+				elif mesg[2] == "carry":
+					await message.channel.send(addCarry(mesg[3], mesg[4]))
+			case "del":
+				if mesg[2] == "item":
+					await message.channel.send(delItem(mesg[3]))
+				elif mesg[2] == "carry":
+					await message.channel.send(delCarry(mesg[3]))
+			case "save":
+				await message.channel.send(save(mesg[2], saveDir))
 
-        elif mesg[1] == "error":
-            if message.author.id == 368922517374763009:
-                await message.channel.send(adminError(mesg[2]))
-                await message.channel.send(
-                    f"<@{368922517374763009}> father, why must you make me error?"
-                )
+			case "error":
+				if message.author.id == 368922517374763009:
+					await message.channel.send(adminError(mesg[2]))
+					await message.channel.send(
+						f"<@{368922517374763009}> father, why must you make me error?"
+					)
 
-        elif mesg[1] == "annoy":
-            if message.author.id == 368922517374763009:
-                toAnnoy = int(mesg[2])
-                LMAO = True
-            else:
-                await message.channel.send(
-                    f"<@{message.author.id}> sorry bud, but you don't get to do that"
-                )
-        elif mesg[1] == "annoyStop":
-            if message.author.id == 368922517374763009:
-                LMAO = False
-            else:
-                await message.channel.send(
-                    f"<@{message.author.id}> sorry bud, but you don't get to do that"
-                )
-        elif mesg[1] == "say":
-            if message.author.id == 368922517374763009:
-                chan = client.get_channel(int(mesg[2]))
-                send = ""
-                for i in mesg[3:]:
-                    send += i + " "
-                await chan.send(send)
-            else:
-                await message.channel.send(
-                    f"<@{message.author.id}> sorry bud, but you don't get to do that"
-                )
+			case "annoy":
+				if message.author.id == 368922517374763009:
+					toAnnoy = int(mesg[2])
+					LMAO = True
+				else:
+					await message.channel.send(
+						f"<@{message.author.id}> sorry bud, but you don't get to do that"
+					)
+			case "annoyStop":
+				if message.author.id == 368922517374763009:
+					LMAO = False
+				else:
+					await message.channel.send(
+						f"<@{message.author.id}> sorry bud, but you don't get to do that"
+					)
+			case "say":
+				if message.author.id == 368922517374763009:
+					chan = client.get_channel(int(mesg[2]))
+					send = ""
+					for i in mesg[3:]:
+						send += i + " "
+					await chan.send(send)
+				else:
+					await message.channel.send(
+						f"<@{message.author.id}> sorry bud, but you don't get to do that"
+					)
 
-        # elif mesg[1] == 'lenny':
-        #     await message.channel.send(lenny_face)
-        # elif mesg[1] == 'randlenny':
-        #     await message.channel.send(lenny())
-        else:
-            await message.reply(embed=getErrMsg())
+			# case 'lenny':
+			#     await message.channel.send(lenny_face)
+			# case 'randlenny':
+			#     await message.channel.send(lenny())
+			case _:
+				await message.reply(embed=getErrMsg())
 
-    if LMAO == True:
-        eef = await client.fetch_user(toAnnoy)
-        await eef.send("Lmao get DM'd on")
+		if LMAO:
+			eef = await client.fetch_user(toAnnoy)
+			await eef.send("Lmao get DM'd on")
 
 
 token = open(tokenfile, "r").readline()
