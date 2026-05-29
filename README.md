@@ -5,16 +5,7 @@ DAC is a Discord bot designed to be a digital helper for TTRPGs.
 DAC stands for Dice And Cart, and is affectionately called "dacca".  
 [View the GitHub Project board here](https://github.com/users/Jynx972/projects/3)
 
-## History
-He was born out of a need to replace an ageing piece of A4 paper that my D&D party was using to track all the items we stored in our cart.  
-I used my skills as an amateur python developer to produce a rudimentary terminal program to track items against carrying capacity.  
-Eventually, I wanted the party to have access to this information, so I looked into the "discord" python package and API to make DAC able to send messages to our D&D group's Discord Server.  
-
-## How to Run
-DAC was developed for UNIX operating systems, and is currently untested on Windows based systems.  
-DAC is also entirely self-hosted, therefore in order to use him you will need to create your own application in the [Discord Developer Portal](https://discord.com/developers/home).  
-You will need to copy the token generated for your application and paste it as the first line in the "tokenfile" file.  
-You should then be able to invite your bot to your desired server (provided you have the permissions to) and run the "dac_main.py" file from a terminal with Python 3.12.  
+[View the DAC wiki for all DAC-Related info!](https://github.com/Jynx972/dacca-discord/wiki)
 
 ## Help Message:
 Sending DAC- help into a channel that DAC can see will print the following message:  
