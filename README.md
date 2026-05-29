@@ -5,7 +5,7 @@ DAC is a Discord bot designed to be a digital helper for TTRPGs.
 DAC stands for Dice And Cart, and is affectionately called "dacca".  
 [View the GitHub Project board here](https://github.com/users/Jynx972/projects/3)
 
-[View the DAC wiki for all DAC-Related info!](https://github.com/Jynx972/dacca-discord/wiki)
+[View the DAC wiki for all DAC-Related info!](https://github.com/Jynx972/dacca-discord/wiki/DAC-Wiki-Home)
 
 ## Help Message:
 Sending DAC- help into a channel that DAC can see will print the following message:  
