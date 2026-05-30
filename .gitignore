@@ -7,9 +7,5 @@
 # Built Visual Studio Code Extensions
 *.vsix
 
-# Bot token file
-*tokenfile
-src/config/config.yaml
-
 # Other excludes
 __pycache__
