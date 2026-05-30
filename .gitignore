@@ -9,6 +9,7 @@
 
 # Bot token file
 *tokenfile
+src/config/config.yaml
 
 # Other excludes
 __pycache__

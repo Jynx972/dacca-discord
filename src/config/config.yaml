@@ -1,3 +1,3 @@
 instance:
-  token: ""
-  admin: 
+  token: "<bot token>"
+  admin: <Admin user ID>
