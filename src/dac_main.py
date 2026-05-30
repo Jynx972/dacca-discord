@@ -1,5 +1,7 @@
 import discord
 import os
+import yaml
+
 from roller.roller import commandParseRoller
 from cart.cart import new, load, save, addCarry, addItem, delCarry, delItem, printItems
 from config.error_handling.getError import getErrMsg, adminError
@@ -16,8 +18,12 @@ basePath = os.path.dirname(os.path.abspath(__file__))
 configDir = os.path.join(basePath, "config")
 saveDir = os.path.join(basePath, "saves")
 
-tokenfile = os.path.join(basePath, "tokenfile")
 helpfile = os.path.join(configDir, "help.txt")
+
+with open(os.path.join(configDir, "config.yaml"), "r") as config_file:
+	config = yaml.safe_load(config_file)
+	adminUser = config["instance"]["admin"]
+	botToken = config["instance"]["token"]
 
 global LMAO
 LMAO = False
@@ -52,7 +58,7 @@ async def on_message(message):
 			case "roll":
 				await message.reply(embed=commandParseRoller(message.content, rigDice))
 			case "rigrolls":
-				if message.author.id == 368922517374763009:
+				if message.author.id == adminUser:
 					if rigDice:
 						rigDice = False
 					else:
@@ -98,14 +104,14 @@ async def on_message(message):
 				await message.channel.send(save(mesg[2], saveDir))
 
 			case "error":
-				if message.author.id == 368922517374763009:
+				if message.author.id == adminUser:
 					await message.channel.send(adminError(mesg[2]))
 					await message.channel.send(
-						f"<@{368922517374763009}> father, why must you make me error?"
+						f"<@{adminUser}> admin, why must you make me error?"
 					)
 
 			case "annoy":
-				if message.author.id == 368922517374763009:
+				if message.author.id == adminUser:
 					toAnnoy = int(mesg[2])
 					LMAO = True
 				else:
@@ -113,14 +119,14 @@ async def on_message(message):
 						f"<@{message.author.id}> sorry bud, but you don't get to do that"
 					)
 			case "annoyStop":
-				if message.author.id == 368922517374763009:
+				if message.author.id == adminUser:
 					LMAO = False
 				else:
 					await message.channel.send(
 						f"<@{message.author.id}> sorry bud, but you don't get to do that"
 					)
 			case "say":
-				if message.author.id == 368922517374763009:
+				if message.author.id == adminUser:
 					chan = client.get_channel(int(mesg[2]))
 					send = ""
 					for i in mesg[3:]:
@@ -139,8 +145,7 @@ async def on_message(message):
 			await eef.send("Lmao get DM'd on")
 
 
-token = open(tokenfile, "r").readline()
-client.run(token)
+client.run(botToken)
 
 # to run DAC, open windows terminal, type 'd:', then make sure in JERT, then run 'py -3 example_bot.py'
 # on UNIX, navigate to the directory this file is in and run 'python3 ./dac_main.py'
