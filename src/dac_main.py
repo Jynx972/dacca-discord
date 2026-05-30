@@ -25,10 +25,6 @@ with open(os.path.join(configDir, "config.yaml"), "r") as config_file:
 	adminUser = config["instance"]["admin"]
 	botToken = config["instance"]["token"]
 
-global LMAO
-LMAO = False
-global toAnnoy
-toAnnoy = 0
 global rigDice
 rigDice = False
 
@@ -40,8 +36,6 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-	global LMAO
-	global toAnnoy
 	global rigDice
 	if message.author == client.user:
 		return
@@ -110,39 +104,8 @@ async def on_message(message):
 						f"<@{adminUser}> admin, why must you make me error?"
 					)
 
-			case "annoy":
-				if message.author.id == adminUser:
-					toAnnoy = int(mesg[2])
-					LMAO = True
-				else:
-					await message.channel.send(
-						f"<@{message.author.id}> sorry bud, but you don't get to do that"
-					)
-			case "annoyStop":
-				if message.author.id == adminUser:
-					LMAO = False
-				else:
-					await message.channel.send(
-						f"<@{message.author.id}> sorry bud, but you don't get to do that"
-					)
-			case "say":
-				if message.author.id == adminUser:
-					chan = client.get_channel(int(mesg[2]))
-					send = ""
-					for i in mesg[3:]:
-						send += i + " "
-					await chan.send(send)
-				else:
-					await message.channel.send(
-						f"<@{message.author.id}> sorry bud, but you don't get to do that"
-					)
-
 			case _:
 				await message.reply(embed=getErrMsg())
-
-		if LMAO:
-			eef = await client.fetch_user(toAnnoy)
-			await eef.send("Lmao get DM'd on")
 
 
 client.run(botToken)
