@@ -142,8 +142,5 @@ async def on_message(message):
 token = open(tokenfile, "r").readline()
 client.run(token)
 
-# if message.author.id == 237448487187251201:
-#    await message.channel.send(f'<@{message.author.id}> fuk u ya bitch')
-
 # to run DAC, open windows terminal, type 'd:', then make sure in JERT, then run 'py -3 example_bot.py'
 # on UNIX, navigate to the directory this file is in and run 'python3 ./dac_main.py'
